@@ -1,0 +1,199 @@
+import 'package:flutter/material.dart';
+
+class Museum {
+  final String name;
+  final String description;
+  final String address;
+  final String openingHours; 
+  final double latitude;      
+  final double longitude;    
+
+  Museum({
+    required this.name,
+    required this.description,
+    required this.address,
+    required this.openingHours, 
+    required this.latitude,
+    required this.longitude,
+  });
+}
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'London Museum Guide',
+      home: MuseumList(),
+    );
+  }
+}
+
+class MuseumList extends StatelessWidget {
+  final List<Museum> museums = [
+    Museum(
+      name: 'British Museum',
+      description: 'A great museum dedicated to human history, art, and culture.',
+      address: 'Great Russell St, Bloomsbury, London',
+      openingHours: 'Daily: 10:00 AM - 5:30 PM',
+      latitude: 51.5194,
+      longitude: -0.1270,
+    ),
+    Museum(
+      name: 'Science Museum',
+      description: 'An interactive museum dedicated to science and technology.',
+      address: 'Exhibition Rd, South Kensington, London',
+      openingHours: 'Daily: 10:00 AM - 6:00 PM',
+      latitude: 51.4779,
+      longitude: -0.173,
+    ),
+    Museum(
+      name: 'Natural History Museum',
+      description: 'A museum featuring exhibits about the natural world.',
+      address: 'Cromwell Rd, South Kensington, London',
+      openingHours: 'Daily: 10:00 AM - 5:50 PM',
+      latitude: 51.4967,
+      longitude: -0.1764,
+    ),
+    Museum(
+      name: 'Tate Modern',
+      description: 'A modern art gallery housed in a former power station.',
+      address: 'Bankside, London',
+      openingHours: 'Sun - Thu: 10:00 AM - 6:00 PM, Fri - Sat: 10:00 AM - 10:00 PM',
+      latitude: 51.5076,
+      longitude: -0.0994,
+    ),
+    Museum(
+      name: 'Victoria and Albert Museum',
+      description: 'The world’s largest museum of decorative arts and design.',
+      address: 'Cromwell Rd, Knightsbridge, London',
+      openingHours: 'Daily: 10:00 AM - 5:45 PM',
+      latitude: 51.4965,
+      longitude: -0.1723,
+    ),
+    Museum(
+      name: 'National Gallery',
+      description: 'An art museum in Trafalgar Square.',
+      address: 'Trafalgar Square, London',
+      openingHours: 'Daily: 10:00 AM - 6:00 PM',
+      latitude: 51.5089,
+      longitude: -0.1283,
+    ),
+    Museum(
+      name: 'Museum of London Docklands',
+      description: 'Explores the history of London’s Docklands through interactive displays.',
+      address: 'No. 1 Warehouse, West India Quay, London',
+      openingHours: 'Daily: 10:00 AM - 5:30 PM',
+      latitude: 51.5057,
+      longitude: -0.0255,
+    ),
+    Museum(
+      name: 'London Transport Museum',
+      description: 'A museum about the history of London’s transport system.',
+      address: 'Covent Garden, London',
+      openingHours: 'Daily: 10:00 AM - 6:00 PM',
+      latitude: 51.5123,
+      longitude: -0.1220,
+    ),
+    Museum(
+      name: 'Museum of London',
+      description: 'A museum focused on the history of London.',
+      address: '150 London Wall, Barbican, London',
+      openingHours: 'Daily: 10:00 AM - 5:30 PM',
+      latitude: 51.5206,
+      longitude: -0.0972,
+    ),
+    Museum(
+      name: 'The Charles Dickens Museum',
+      description: 'The former home of the famous author Charles Dickens.',
+      address: '48 Doughty St, Holborn, London',
+      openingHours: 'Mon - Sat: 10:00 AM - 5:00 PM, Sun: 11:00 AM - 5:00 PM',
+      latitude: 51.5208,
+      longitude: -0.1130,
+    ),
+    Museum(
+      name: 'The Sherlock Holmes Museum',
+      description: 'A museum dedicated to the famous fictional detective.',
+      address: '221B Baker St, Marylebone, London',
+      openingHours: 'Daily: 9:30 AM - 6:00 PM',
+      latitude: 51.5239,
+      longitude: -0.1585,
+    ),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('London Museums')),
+      body: ListView.builder(
+        itemCount: museums.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 4,
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MuseumDetail(museum: museums[index]),
+                  ),
+                );
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      museums[index].name,
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(museums[index].address),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class MuseumDetail extends StatelessWidget {
+  final Museum museum;
+
+  MuseumDetail({required this.museum});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(museum.name)),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              museum.name,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Text(museum.description, style: TextStyle(fontSize: 18)),
+            SizedBox(height: 20),
+            Text('Address: ${museum.address}', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 20),
+            Text('Opening Hours: ${museum.openingHours}', style: TextStyle(fontSize: 18)),
+            SizedBox(height: 20),
+            Text('Coordinates: ${museum.latitude}, ${museum.longitude}', style: TextStyle(fontSize: 18)), 
+          ],
+        ),
+      ),
+    );
+  }
+}
